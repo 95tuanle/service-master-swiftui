@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import FirebaseAuth
 
 struct OrangeButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
@@ -16,17 +16,11 @@ struct OrangeButtonStyle: ButtonStyle {
             .foregroundColor(.black)
             .clipShape(Capsule())
             .padding(.all,8)
-
     }
 }
 
-    
-
 struct Dashboard2View: View {
-    
-    
     @State private var textField1 : String = ""
-
     var body: some View {
         Group{
             VStack {
@@ -40,7 +34,7 @@ struct Dashboard2View: View {
                     .padding(.bottom, 20)
                 
                 TextField ("I am looking for a master about..", text: $textField1)
-              
+                
                 
                     .padding(4)
                     .overlay(
@@ -49,7 +43,7 @@ struct Dashboard2View: View {
                     )
                     .frame(width: 377, height: 39, alignment: .center)
                     .padding(.bottom, 20)
-
+                
                 
                 Text("Meet with new masters in your area!") .bold()
                     .frame(width: 303, height: 22, alignment: .leading)
@@ -85,18 +79,6 @@ struct Dashboard2View: View {
                     .frame(width: 303, height: 22, alignment: .leading)
                 Group{
                     HStack{
-                            ZStack{
-                                Image("reviewCircle")
-                                    .resizable()
-                                    .frame(width: 30, height: 30, alignment: .topLeading)
-                                //                .imageScale(.large)
-                                    .padding(.all, 4)
-                                Image("Star")
-                                    .resizable()
-                                    .frame(width: 30, height: 30, alignment: .topLeading)
-                                //                .imageScale(.large)
-                                    .padding(.all, 4)
-                            }
                         ZStack{
                             Image("reviewCircle")
                                 .resizable()
@@ -145,17 +127,22 @@ struct Dashboard2View: View {
                             //                .imageScale(.large)
                                 .padding(.all, 4)
                         }
-                            
-                        
+                        ZStack{
+                            Image("reviewCircle")
+                                .resizable()
+                                .frame(width: 30, height: 30, alignment: .topLeading)
+                            //                .imageScale(.large)
+                                .padding(.all, 4)
+                            Image("Star")
+                                .resizable()
+                                .frame(width: 30, height: 30, alignment: .topLeading)
+                            //                .imageScale(.large)
+                                .padding(.all, 4)
+                        }
                     }
-                    
-                    VStack{
-                        
-                        
+                    VStack {
                         Text("Schedule a service master right now") .bold()
                             .frame(width: 303, height: 22, alignment: .leading)
-                        
-                       
                         NavigationLink(destination: FavoriteMastersView()) {
                             Text("My favorite Masters")
                         }.buttonStyle(OrangeButtonStyle())
@@ -168,22 +155,21 @@ struct Dashboard2View: View {
                             Text("Help")
                         }.buttonStyle(OrangeButtonStyle())
                         
-                        NavigationLink(destination: LandingView()) {
+                        NavigationLink(destination: LandingView().onAppear() {
+                            do {
+                              try Auth.auth().signOut()
+                            } catch let signOutError as NSError {
+                              print("Error signing out: %@", signOutError)
+                            }
+                        }) {
                             Text("Sign out")
                         }.buttonStyle(OrangeButtonStyle())
-                        
                     }
-                    
                 }
-                
             }
-        
-        }.navigationBarHidden(true)
-        .background(Color(red: 0.929, green: 0.929, blue: 0.929))
-
+        }.navigationBarHidden(true).background(Color(red: 0.929, green: 0.929, blue: 0.929))
     }
-        
-
+    
 }
 
 
