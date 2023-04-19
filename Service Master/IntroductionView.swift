@@ -20,6 +20,12 @@ struct IntroductionView: View {
                     Text("To enjoy our benefits").fontWeight(.semibold)
                     Spacer()
                     HStack {
+//                        Spacer()
+//                        NavigationLink(destination: FirebaseUIView()) {
+//                            Text("Join now").fontWeight(.semibold).foregroundColor(.black)
+//                        }.frame(width: geometryReader.size.width*0.7, height: geometryReader.size.height*0.05).background(
+//                            RoundedRectangle(cornerRadius: 33).fill(Color("ButtonColor"))
+//                        )
                         Spacer()
                         NavigationLink(destination: SignUpView()) {
                             Text("Sign up").fontWeight(.semibold).foregroundColor(.black)
