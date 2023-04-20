@@ -60,8 +60,8 @@ struct CustomLoginViewController : UIViewControllerRepresentable {
         let authUI = FUIAuth.defaultAuthUI()
         
         let providers : [FUIAuthProvider] = [
-            FUIEmailAuth(),
-            FUIGoogleAuth()
+            FUIEmailAuth()
+//            FUIGoogleAuth()
         ]
         
         authUI?.providers = providers
