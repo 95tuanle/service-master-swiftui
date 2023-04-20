@@ -49,7 +49,7 @@ struct IntroductionView: View {
                     Spacer()
                 }.frame(width: geometryReader.size.width*0.9, height: geometryReader.size.height*0.5)
                 Spacer()
-                List(services, id: \.self) { service in
+                List(services) { service in
                     Section {
                         Text(service.mainServices)
                     }

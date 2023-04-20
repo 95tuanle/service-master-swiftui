@@ -19,14 +19,21 @@ struct ServicesView: View {
                     Image("Logo").resizable().aspectRatio(contentMode: .fit).frame(width: geometryReader.size.width*0.6)
                     Text("With Service Master, you can rest assured that your home renovation project is in good hands. Our team of skilled professionals is dedicated to providing high-quality, efficient, and reliable services to meet all of your renovation needs. Try Service Master today and see the difference for yourself.").multilineTextAlignment(.center)
                 }.frame(width: geometryReader.size.width*0.9)
-                NavigationLink(destination: BookingsView()) {
-                    Text("View Bookings").fontWeight(.semibold).foregroundColor(.black)
-                }.frame(width: geometryReader.size.width*0.5, height: geometryReader.size.height*0.05).background(
-                    RoundedRectangle(cornerRadius: 33).fill(Color("ButtonColor"))
-                )
-                List(services, id: \.self) { service in
+                HStack {
+                    NavigationLink(destination: BookingsView()) {
+                        Text("Bookings").fontWeight(.semibold).foregroundColor(.black)
+                    }.frame(width: geometryReader.size.width*0.4, height: geometryReader.size.height*0.05).background(
+                        RoundedRectangle(cornerRadius: 33).fill(Color("ButtonColor"))
+                    )
+                    NavigationLink(destination: DashboardView()) {
+                        Text("Dashboard").fontWeight(.semibold).foregroundColor(.black)
+                    }.frame(width: geometryReader.size.width*0.4, height: geometryReader.size.height*0.05).background(
+                        RoundedRectangle(cornerRadius: 33).fill(Color("ButtonColor"))
+                    )
+                }
+                List(services) { service in
                     Section {
-                        NavigationLink(destination: ServiceView(service)) {
+                        NavigationLink(destination: ServiceView().environmentObject(service)) {
                             Text(service.mainServices)
                         }
                     }

@@ -12,12 +12,15 @@ import FirebaseAuth
 @main
 struct Service_MasterApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    init() {
+        UINavigationBar.setAnimationsEnabled(false)
+    }
     var body: some Scene {
         WindowGroup {
             if Auth.auth().currentUser == nil {
                 LandingView()
             } else {
-                Dashboard2View()
+                DashboardView()
             }
         }
     }

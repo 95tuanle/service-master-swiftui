@@ -8,11 +8,8 @@
 import SwiftUI
 
 struct ServiceView: View {
-    var service: Service
+    @EnvironmentObject var service: Service
     
-    init(_ service: Service) {
-        self.service = service
-    }
     var body: some View {
         NavigationStack {
             GeometryReader{geometryReader in LazyVStack(spacing: geometryReader.size.height*0.03) {
@@ -20,7 +17,7 @@ struct ServiceView: View {
                 VStack(spacing: geometryReader.size.height*0.05) {
                     Text(service.mainServices).fontWeight(.semibold)
                     Text(service.description).multilineTextAlignment(.center)
-                    NavigationLink(destination: BookingStep1View(service)) {
+                    NavigationLink(destination: BookingStep1View().environmentObject(service)) {
                         Text("Book now").fontWeight(.semibold).foregroundColor(.black)
                     }.frame(width: geometryReader.size.width*0.7, height: geometryReader.size.height*0.05).background(
                         RoundedRectangle(cornerRadius: 33).fill(Color("ButtonColor"))
@@ -41,6 +38,6 @@ struct ServiceView_Previews: PreviewProvider {
             "description": "Need a contractor to repair and upgrade your Bathroom but aren't sure where to find one? Get Connected to a Pro Service Provider through Service Master App!"
         ]
         
-        ServiceView(Service(dictionary))
+        ServiceView().environmentObject(Service(dictionary))
     }
 }
