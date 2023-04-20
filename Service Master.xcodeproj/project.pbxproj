@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AF50246B29D055E300D30FF7 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF50246A29D055E300D30FF7 /* ForgotPasswordView.swift */; };
-		AF50246D29D058AF00D30FF7 /* Dashboard1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF50246C29D058AF00D30FF7 /* Dashboard1View.swift */; };
+		AF50246D29D058AF00D30FF7 /* ServicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF50246C29D058AF00D30FF7 /* ServicesView.swift */; };
 		AF50246F29D05C4100D30FF7 /* ServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF50246E29D05C4100D30FF7 /* ServiceView.swift */; };
 		AF524ACE29F081E000C0D1E7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AF524ACD29F081E000C0D1E7 /* GoogleService-Info.plist */; };
 		AF524B0A29F08BD600C0D1E7 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = AF524B0929F08BD600C0D1E7 /* FirebaseAnalytics */; };
@@ -49,6 +49,8 @@
 		AF524B5129F08EB900C0D1E7 /* FirebasePhoneAuthUI in Frameworks */ = {isa = PBXBuildFile; productRef = AF524B5029F08EB900C0D1E7 /* FirebasePhoneAuthUI */; };
 		AF524B5329F08EB900C0D1E7 /* FirebaseStorageUI in Frameworks */ = {isa = PBXBuildFile; productRef = AF524B5229F08EB900C0D1E7 /* FirebaseStorageUI */; };
 		AF524B5529F0973800C0D1E7 /* FirebaseUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF524B5429F0973800C0D1E7 /* FirebaseUIView.swift */; };
+		AF59383929F112B4006DDEFE /* BookingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF59383829F112B4006DDEFE /* BookingsView.swift */; };
+		AF59383B29F11A4B006DDEFE /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF59383A29F11A4B006DDEFE /* Service.swift */; };
 		AF8A935F29CC89870049236A /* Service_MasterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8A935E29CC89870049236A /* Service_MasterApp.swift */; };
 		AF8A936329CC89880049236A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF8A936229CC89880049236A /* Assets.xcassets */; };
 		AF8A936629CC89880049236A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF8A936529CC89880049236A /* Preview Assets.xcassets */; };
@@ -73,10 +75,12 @@
 
 /* Begin PBXFileReference section */
 		AF50246A29D055E300D30FF7 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
-		AF50246C29D058AF00D30FF7 /* Dashboard1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard1View.swift; sourceTree = "<group>"; };
+		AF50246C29D058AF00D30FF7 /* ServicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesView.swift; sourceTree = "<group>"; };
 		AF50246E29D05C4100D30FF7 /* ServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceView.swift; sourceTree = "<group>"; };
 		AF524ACD29F081E000C0D1E7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AF524B5429F0973800C0D1E7 /* FirebaseUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUIView.swift; sourceTree = "<group>"; };
+		AF59383829F112B4006DDEFE /* BookingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingsView.swift; sourceTree = "<group>"; };
+		AF59383A29F11A4B006DDEFE /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		AF8A935B29CC89870049236A /* Service Master.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Service Master.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF8A935E29CC89870049236A /* Service_MasterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service_MasterApp.swift; sourceTree = "<group>"; };
 		AF8A936229CC89880049236A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -182,7 +186,8 @@
 				AFB31F6129D02AE700F3ED45 /* SignUpView.swift */,
 				AFB31F5F29D02AD900F3ED45 /* SignInView.swift */,
 				AF50246A29D055E300D30FF7 /* ForgotPasswordView.swift */,
-				AF50246C29D058AF00D30FF7 /* Dashboard1View.swift */,
+				AF59383829F112B4006DDEFE /* BookingsView.swift */,
+				AF50246C29D058AF00D30FF7 /* ServicesView.swift */,
 				AF50246E29D05C4100D30FF7 /* ServiceView.swift */,
 				AFBB8AE329D1232C00286880 /* BookingStep1View.swift */,
 				AFBB8ADE29D1232C00286880 /* BookingStep2View.swift */,
@@ -193,6 +198,7 @@
 				AFBB8AF329D1257300286880 /* FavoriteMastersView.swift */,
 				AFBB8AF429D1257300286880 /* FaqView.swift */,
 				AFBB8AF229D1257300286880 /* ReferFriendView.swift */,
+				AF59383A29F11A4B006DDEFE /* Service.swift */,
 				AF8A936229CC89880049236A /* Assets.xcassets */,
 				AF524ACD29F081E000C0D1E7 /* GoogleService-Info.plist */,
 				AF8A936429CC89880049236A /* Preview Content */,
@@ -349,8 +355,10 @@
 				AFBB8AEE29D1232C00286880 /* BookingStep4View.swift in Sources */,
 				AFB31F6229D02AE700F3ED45 /* SignUpView.swift in Sources */,
 				AF8A936F29CC9DC00049236A /* IntroductionView.swift in Sources */,
-				AF50246D29D058AF00D30FF7 /* Dashboard1View.swift in Sources */,
+				AF50246D29D058AF00D30FF7 /* ServicesView.swift in Sources */,
 				AFBB8AE829D1232C00286880 /* BookingStep3View.swift in Sources */,
+				AF59383B29F11A4B006DDEFE /* Service.swift in Sources */,
+				AF59383929F112B4006DDEFE /* BookingsView.swift in Sources */,
 				AFB31F6029D02AD900F3ED45 /* SignInView.swift in Sources */,
 				AFBB8AF529D1257300286880 /* Dashboard2View.swift in Sources */,
 				AF50246B29D055E300D30FF7 /* ForgotPasswordView.swift in Sources */,

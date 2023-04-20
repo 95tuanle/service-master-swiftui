@@ -9,7 +9,10 @@ import SwiftUI
 
 struct BookingStep1View: View {
     @State var postal: String = ""
-    
+    var service: Service
+    init(_ service: Service) {
+        self.service = service
+    }
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
@@ -24,7 +27,7 @@ struct BookingStep1View: View {
                 
                 TextFieldView(stateVar: $postal, placeholder: "L6Y 5N4")
                 
-                NavigationLink(destination: BookingStep2View()) {
+                NavigationLink(destination: BookingStep2View(service)) {
                     NavButtonTextView(text: "Next Step")
                 }.padding([.top, .bottom])
                 
@@ -49,6 +52,10 @@ struct BookingStep1View: View {
 
 struct BookingStep1Page_Previews: PreviewProvider {
     static var previews: some View {
-        BookingStep1View()
+        let dictionary: NSDictionary = [
+            "mainServices": "Bathroom Maintenance & Upgrade",
+            "description": "Need a contractor to repair and upgrade your Bathroom but aren't sure where to find one? Get Connected to a Pro Service Provider through Service Master App!"
+        ]
+        BookingStep1View(Service(dictionary))
     }
 }

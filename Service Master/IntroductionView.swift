@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseDatabase
 
 struct IntroductionView: View {
-    @State var services: [NSDictionary] = []
+    @State var services: [Service] = []
     
     let ref = Database.database().reference()
     
@@ -51,7 +51,7 @@ struct IntroductionView: View {
                 Spacer()
                 List(services, id: \.self) { service in
                     Section {
-                        Text(service.value(forKey: "mainServices") as! String)
+                        Text(service.mainServices)
                     }
                 }.scrollContentBackground(.hidden)
             }}.background(Color("BackgroundColor"))
@@ -61,7 +61,10 @@ struct IntroductionView: View {
                     print(error!.localizedDescription)
                     return;
                 }
-                services = snapshot?.value as? [NSDictionary] ?? []
+                let data = snapshot?.value as? [NSDictionary] ?? []
+                services = data.map({(service) -> Service in
+                    return Service(service)
+                })
             })
         })
     }

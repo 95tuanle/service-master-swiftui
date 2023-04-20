@@ -17,6 +17,11 @@ struct BookingStep2View: View {
     @State var urgencyChoice: urgencyChoice = .ASAP
     @State var description: String = ""
     
+    let service: Service
+    init(_ service: Service) {
+        self.service = service
+    }
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
@@ -72,11 +77,11 @@ struct BookingStep2View: View {
                     )
                     .padding([.trailing, .leading])
                 
-                NavigationLink(destination: BookingStep1View()) {
+                NavigationLink(destination: BookingStep1View(service)) {
                     NavButtonTextView(text: "Previous step")
                 }.padding([.top])
                 
-                NavigationLink(destination: BookingStep3View()) {
+                NavigationLink(destination: BookingStep3View(service)) {
                     NavButtonTextView(text: "Next Step")
                 }.padding([.bottom])
                 
@@ -89,6 +94,10 @@ struct BookingStep2View: View {
 
 struct BookingStep2Page_Previews: PreviewProvider {
     static var previews: some View {
-        BookingStep2View()
+        let dictionary: NSDictionary = [
+            "mainServices": "Bathroom Maintenance & Upgrade",
+            "description": "Need a contractor to repair and upgrade your Bathroom but aren't sure where to find one? Get Connected to a Pro Service Provider through Service Master App!"
+        ]
+        BookingStep2View(Service(dictionary))
     }
 }
