@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-//import GoogleSignInSwift
+import GoogleSignInSwift
 import _AuthenticationServices_SwiftUI
 import FirebaseAuth
 
@@ -68,7 +68,7 @@ struct SignInView: View {
                     Spacer()
                     Group {
                         SignInWithAppleButton(onRequest: {_ in}, onCompletion: {_ in}).frame(height: geometryReader.size.height*0.05).cornerRadius(33)
-                        //                    GoogleSignInButton(scheme: .light, style: .wide, state: .normal, action: {}).cornerRadius(33)
+                        GoogleSignInButton(scheme: .light, style: .wide, state: .normal, action: {}).cornerRadius(33)
                     }
                     Spacer()
                 }.frame(width: geometryReader.size.width*0.9)
