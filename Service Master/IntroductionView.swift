@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import FirebaseDatabase
 
 struct IntroductionView: View {
-    private var services = ["Bathroom Maintenance & Upgrade", "Kitchen", "Cleaning Services", "Painting and Decoration", "Foundations", "Landscaping", "Pest Control", "Flooring"]
+    @State var services: [NSDictionary] = []
+    
+    let ref = Database.database().reference()
     
     var body: some View {
         NavigationStack {
@@ -21,12 +24,12 @@ struct IntroductionView: View {
                         Text("To enjoy our benefits").fontWeight(.semibold)
                         Spacer()
                         HStack {
-                            //                        Spacer()
-                            //                        NavigationLink(destination: FirebaseUIView()) {
-                            //                            Text("Join now").fontWeight(.semibold).foregroundColor(.black)
-                            //                        }.frame(width: geometryReader.size.width*0.7, height: geometryReader.size.height*0.05).background(
-                            //                            RoundedRectangle(cornerRadius: 33).fill(Color("ButtonColor"))
-                            //                        )
+//                            Spacer()
+//                            NavigationLink(destination: FirebaseUIView()) {
+//                                Text("Join now").fontWeight(.semibold).foregroundColor(.black)
+//                            }.frame(width: geometryReader.size.width*0.7, height: geometryReader.size.height*0.05).background(
+//                                RoundedRectangle(cornerRadius: 33).fill(Color("ButtonColor"))
+//                            )
                             Spacer()
                             NavigationLink(destination: SignUpView()) {
                                 Text("Sign up").fontWeight(.semibold).foregroundColor(.black)
@@ -48,11 +51,19 @@ struct IntroductionView: View {
                 Spacer()
                 List(services, id: \.self) { service in
                     Section {
-                        Text(service)
+                        Text(service.value(forKey: "mainServices") as! String)
                     }
                 }.scrollContentBackground(.hidden)
             }}.background(Color("BackgroundColor"))
-        }.navigationBarHidden(true)
+        }.navigationBarHidden(true).onAppear(perform: {
+            ref.getData(completion:  { error, snapshot in
+                guard error == nil else {
+                    print(error!.localizedDescription)
+                    return;
+                }
+                services = snapshot?.value as? [NSDictionary] ?? []
+            })
+        })
     }
 }
 
