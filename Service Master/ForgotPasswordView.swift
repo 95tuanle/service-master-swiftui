@@ -7,11 +7,15 @@
 
 import SwiftUI
 import _AuthenticationServices_SwiftUI
+import FirebaseAuth
 //import GoogleSignInSwift
 
 struct ForgotPasswordView: View {
     @State private var email: String = ""
-    @State private var password: String = ""
+    @State private var isSubmittedReset: Bool = false
+    @State private var invalidForm: Bool = false
+    @State private var isError = false
+    @State private var errorMessage = ""
     var body: some View {
         NavigationStack {
             GeometryReader {geometryReader in HStack {
@@ -24,15 +28,34 @@ struct ForgotPasswordView: View {
                     Spacer()
                     Group {
                         TextField("Email", text: $email).textInputAutocapitalization(.never).disableAutocorrection(true).padding().background(.white).cornerRadius(33)
-                        SecureField("Password", text: $password).textInputAutocapitalization(.never).disableAutocorrection(true).padding().background(.white).cornerRadius(33)
+                        
                         NavigationLink(destination: SignInView()) {
                             Text("Want to sign in")
                         }
-                        NavigationLink(destination: SignInView()) {
+                        
+                        Button(action: {
+                            if email.isEmpty {
+                                invalidForm = true
+                            } else {
+                                Auth.auth().sendPasswordReset(withEmail: email) { error in
+                                    if let error = error {
+                                        isSubmittedReset = false
+                                        isError = true
+                                        errorMessage = error.localizedDescription
+                                    } else {
+                                        isSubmittedReset = true
+                                    }
+                                }
+                            }
+                        }, label: {
                             Text("Reset password").fontWeight(.semibold).foregroundColor(.black)
-                        }.frame(width: geometryReader.size.width*0.9, height: geometryReader.size.height*0.05).background(
+                        }).frame(width: geometryReader.size.width*0.9, height: geometryReader.size.height*0.05).background(
                             RoundedRectangle(cornerRadius: 33).fill(Color("ButtonColor"))
-                        )
+                        ).alert("Invalid form", isPresented: $invalidForm) {
+                            Button("OK", role: .cancel) { }
+                        }.alert(errorMessage, isPresented: $isError) {
+                            Button("OK", role: .cancel) { }
+                        }
                         HStack {
                             Text("Don't have an account?")
                             NavigationLink(destination: SignUpView()) {
@@ -48,7 +71,7 @@ struct ForgotPasswordView: View {
                     Spacer()
                 }.frame(width: geometryReader.size.width*0.9)
                 Spacer()
-            }}.background(Color("BackgroundColor"))
+            }}.background(Color("BackgroundColor")).navigationDestination(isPresented: $isSubmittedReset, destination: {SignInView()})
         }.navigationBarHidden(true)
     }
 }
