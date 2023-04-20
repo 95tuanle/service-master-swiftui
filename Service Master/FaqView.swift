@@ -199,7 +199,7 @@ struct FaqView: View {
                         }
                         
                     }
-                    NavigationLink(destination: Dashboard2View()) {
+                    NavigationLink(destination: DashboardView()) {
                         Text("Go to dashboard")
                     }.buttonStyle(OrangeButtonStyle())
                 }

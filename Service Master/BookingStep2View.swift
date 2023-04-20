@@ -8,19 +8,10 @@
 import SwiftUI
 
 struct BookingStep2View: View {
-    enum urgencyChoice {
-        case ASAP
-        case Week
-        case Anytime
-    }
-    
-    @State var urgencyChoice: urgencyChoice = .ASAP
-    @State var description: String = ""
-    
-    let service: Service
-    init(_ service: Service) {
-        self.service = service
-    }
+    @EnvironmentObject var service: Service
+    @EnvironmentObject var booking: Booking
+    @State private var invalidForm: Bool = false
+    @State private var isReadyToNavigate: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -37,27 +28,27 @@ struct BookingStep2View: View {
                 
                 HStack {
                     Button(action: {
-                        self.urgencyChoice = .ASAP
+                        booking.urgency = "ASAP"
                     }) {
                         UrgencyButtonTextView(text: "ASAP",
-                                              bgColor: self.urgencyChoice == .ASAP ? "black": "appOrange",
-                                              fgColor: self.urgencyChoice == .ASAP ? "white": "black")
+                                              bgColor: booking.urgency == "ASAP" ? "black": "appOrange",
+                                              fgColor: booking.urgency == "ASAP" ? "white": "black")
                     }
                     
                     Button(action: {
-                        self.urgencyChoice = .Week
+                        booking.urgency = "1 Week"
                     }) {
                         UrgencyButtonTextView(text: "1 Week",
-                                              bgColor: self.urgencyChoice == .Week ? "black": "appOrange",
-                                              fgColor: self.urgencyChoice == .Week ? "white": "black")
+                                              bgColor: booking.urgency == "1 Week" ? "black": "appOrange",
+                                              fgColor: booking.urgency == "1 Week" ? "white": "black")
                     }
                     
                     Button(action: {
-                        self.urgencyChoice = .Anytime
+                        booking.urgency = "Anytime"
                     }) {
                         UrgencyButtonTextView(text: "Anytime",
-                                              bgColor: self.urgencyChoice == .Anytime ? "black": "appOrange",
-                                              fgColor: self.urgencyChoice == .Anytime ? "white": "black")
+                                              bgColor: booking.urgency == "Anytime" ? "black": "appOrange",
+                                              fgColor: booking.urgency == "Anytime" ? "white": "black")
                     }
                 }
                 
@@ -67,7 +58,7 @@ struct BookingStep2View: View {
                     Spacer()
                 }
                 
-                TextField("Lorem ipsum dolor sit amet consectetur. Felis lacus faucibus sed mattis euismod fermentum est. Quis magna diam at accumsan proin velit ut pretium non. Diam auctor id augue venenatis eros massa. Diam vulputate lectus ac metus id tempor eu tempor. Porta convallis et et tortor nunc. Elit adipiscing duis velit lacus.", text: $description, axis: .vertical)
+                TextField("Lorem ipsum dolor sit amet consectetur. Felis lacus faucibus sed mattis euismod fermentum est. Quis magna diam at accumsan proin velit ut pretium non. Diam auctor id augue venenatis eros massa. Diam vulputate lectus ac metus id tempor eu tempor. Porta convallis et et tortor nunc. Elit adipiscing duis velit lacus.", text: $booking.description, axis: .vertical)
                     .lineLimit(9...10)
                     .frame(minHeight: 200, idealHeight: 200)
                     .padding([.top, .bottom, .trailing, .leading])
@@ -77,27 +68,34 @@ struct BookingStep2View: View {
                     )
                     .padding([.trailing, .leading])
                 
-                NavigationLink(destination: BookingStep1View(service)) {
+                NavigationLink(destination: BookingStep1View().environmentObject(service).environmentObject(booking)) {
                     NavButtonTextView(text: "Previous step")
                 }.padding([.top])
                 
-                NavigationLink(destination: BookingStep3View(service)) {
+                Button(action: {
+                    if booking.description.isEmpty || booking.urgency.isEmpty {
+                        invalidForm = true
+                        isReadyToNavigate = false
+                    } else {
+                        invalidForm = false
+                        isReadyToNavigate = true
+                    }
+                }, label: {
                     NavButtonTextView(text: "Next Step")
-                }.padding([.bottom])
-                
-                
+                }).alert("Invalid form", isPresented: $invalidForm) {
+                    Button("OK", role: .cancel) { }
+                }
                 Spacer()
-            }.background(Color("BackgroundColor"))
+            }.background(Color("BackgroundColor")).navigationDestination(isPresented: $isReadyToNavigate, destination: {BookingStep3View().environmentObject(service).environmentObject(booking)})
         }.navigationBarHidden(true)
     }
 }
 
 struct BookingStep2Page_Previews: PreviewProvider {
     static var previews: some View {
-        let dictionary: NSDictionary = [
+        BookingStep2View().environmentObject(Service([
             "mainServices": "Bathroom Maintenance & Upgrade",
             "description": "Need a contractor to repair and upgrade your Bathroom but aren't sure where to find one? Get Connected to a Pro Service Provider through Service Master App!"
-        ]
-        BookingStep2View(Service(dictionary))
+        ])).environmentObject(Booking())
     }
 }

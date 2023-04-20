@@ -8,29 +8,34 @@
 import SwiftUI
 
 struct BookingStep1View: View {
-    @State var postal: String = ""
-    var service: Service
-    init(_ service: Service) {
-        self.service = service
-    }
+    @EnvironmentObject var service: Service
+    @State private var invalidForm: Bool = false
+    @State private var isReadyToNavigate: Bool = false
+    @StateObject var booking = Booking()
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
                 Image("Service-master-logo")
-                
                 NavBarView(one: "black1", two: "orange2", three: "orange3", four: "orange4")
-                
                 HStack {
                     Text("Enter your postal code").fontWeight(.bold).padding()
                     Spacer()
                 }
-                
-                TextFieldView(stateVar: $postal, placeholder: "L6Y 5N4")
-                
-                NavigationLink(destination: BookingStep2View(service)) {
+                TextFieldView(stateVar: $booking.postalCode, placeholder: "L6Y 5N4")
+                Button(action: {
+                    if booking.postalCode.isEmpty {
+                        invalidForm = true
+                        isReadyToNavigate = false
+                    } else {
+                        invalidForm = false
+                        isReadyToNavigate = true
+                    }
+                }, label: {
                     NavButtonTextView(text: "Next Step")
-                }.padding([.top, .bottom])
-                
+                }).alert("Invalid form", isPresented: $invalidForm) {
+                    Button("OK", role: .cancel) { }
+                }
                 
                 Divider()
                     .padding([.trailing, .leading], 70)
@@ -45,17 +50,16 @@ struct BookingStep1View: View {
                     .padding([.leading, .trailing])
                 
                 Spacer()
-            }.background(Color("BackgroundColor"))
+            }.background(Color("BackgroundColor")).navigationDestination(isPresented: $isReadyToNavigate, destination: {BookingStep2View().environmentObject(booking).environmentObject(service)})
         }.navigationBarHidden(true)
     }
 }
 
 struct BookingStep1Page_Previews: PreviewProvider {
     static var previews: some View {
-        let dictionary: NSDictionary = [
+        BookingStep1View().environmentObject(Service([
             "mainServices": "Bathroom Maintenance & Upgrade",
             "description": "Need a contractor to repair and upgrade your Bathroom but aren't sure where to find one? Get Connected to a Pro Service Provider through Service Master App!"
-        ]
-        BookingStep1View(Service(dictionary))
+        ]))
     }
 }

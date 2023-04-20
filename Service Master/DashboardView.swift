@@ -19,8 +19,13 @@ struct OrangeButtonStyle: ButtonStyle {
     }
 }
 
-struct Dashboard2View: View {
+struct DashboardView: View {
     @State private var textField1 : String = ""
+    
+    @State private var isSignedOut: Bool = false
+    @State private var invalidForm: Bool = false
+    @State private var isError = false
+    @State private var errorMessage = ""
     let email = Auth.auth().currentUser?.email
     var body: some View {
         NavigationStack {
@@ -28,7 +33,7 @@ struct Dashboard2View: View {
                 VStack {
                     Image("Logo").resizable().aspectRatio(contentMode: .fit).frame(width: geometryReader.size.width*0.6)
                     Text("Hi \(email ?? "user") how can we help you?").bold()
-                    TextField ("I am looking for a master about..", text: $textField1).padding(3).overlay(RoundedRectangle(cornerRadius: 33).stroke(Color.gray, lineWidth: 0.2)).frame(width: geometryReader.size.width*0.8, alignment: .center)
+                    TextField ("I am looking for a master about..", text: $textField1).padding(3).overlay(RoundedRectangle(cornerRadius: 33).stroke(Color.gray, lineWidth: 0.2)).frame(width: geometryReader.size.width*0.9, alignment: .center)
                     Text("Meet with new masters in your area!").bold()
                     HStack{
                         VStack{
@@ -64,103 +69,100 @@ struct Dashboard2View: View {
                                 Image("reviewCircle")
                                     .resizable()
                                     .frame(width: 30, height: 30, alignment: .topLeading)
-                                //                .imageScale(.large)
                                     .padding(.all, 4)
                                 Image("Star")
                                     .resizable()
                                     .frame(width: 30, height: 30, alignment: .topLeading)
-                                //                .imageScale(.large)
                                     .padding(.all, 4)
                             }
                             ZStack{
                                 Image("reviewCircle")
                                     .resizable()
                                     .frame(width: 30, height: 30, alignment: .topLeading)
-                                //                .imageScale(.large)
                                     .padding(.all, 4)
                                 Image("Star")
                                     .resizable()
                                     .frame(width: 30, height: 30, alignment: .topLeading)
-                                //                .imageScale(.large)
                                     .padding(.all, 4)
                             }
                             ZStack{
                                 Image("reviewCircle")
                                     .resizable()
                                     .frame(width: 30, height: 30, alignment: .topLeading)
-                                //                .imageScale(.large)
                                     .padding(.all, 4)
                                 Image("Star")
                                     .resizable()
                                     .frame(width: 30, height: 30, alignment: .topLeading)
-                                //                .imageScale(.large)
                                     .padding(.all, 4)
                             }
                             ZStack{
                                 Image("reviewCircle")
                                     .resizable()
                                     .frame(width: 30, height: 30, alignment: .topLeading)
-                                //                .imageScale(.large)
                                     .padding(.all, 4)
                                 Image("Star")
                                     .resizable()
                                     .frame(width: 30, height: 30, alignment: .topLeading)
-                                //                .imageScale(.large)
                                     .padding(.all, 4)
                             }
                             ZStack{
                                 Image("reviewCircle")
                                     .resizable()
                                     .frame(width: 30, height: 30, alignment: .topLeading)
-                                //                .imageScale(.large)
                                     .padding(.all, 4)
                                 Image("Star")
                                     .resizable()
                                     .frame(width: 30, height: 30, alignment: .topLeading)
-                                //                .imageScale(.large)
                                     .padding(.all, 4)
                             }
                         }
                         VStack {
                             Text("Schedule a service master right now").bold()
                             NavigationLink(destination: BookingsView()) {
-                                Text("View bookings").fontWeight(.semibold).foregroundColor(.black)
-                            }.frame(width: geometryReader.size.width*0.5, height: geometryReader.size.height*0.05).background(
+                                Text("Bookings").fontWeight(.semibold).foregroundColor(.black)
+                            }.frame(width: geometryReader.size.width*0.9, height: geometryReader.size.height*0.05).background(
                                 RoundedRectangle(cornerRadius: 33).fill(Color("ButtonColor"))
                             )
                             NavigationLink(destination: ServicesView()) {
-                                Text("View services").fontWeight(.semibold).foregroundColor(.black)
-                            }.frame(width: geometryReader.size.width*0.5, height: geometryReader.size.height*0.05).background(
+                                Text("Services").fontWeight(.semibold).foregroundColor(.black)
+                            }.frame(width: geometryReader.size.width*0.9, height: geometryReader.size.height*0.05).background(
                                 RoundedRectangle(cornerRadius: 33).fill(Color("ButtonColor"))
                             )
                             NavigationLink(destination: FavoriteMastersView()) {
-                                Text("View masters").fontWeight(.semibold).foregroundColor(.black)
-                            }.frame(width: geometryReader.size.width*0.5, height: geometryReader.size.height*0.05).background(
+                                Text("Masters").fontWeight(.semibold).foregroundColor(.black)
+                            }.frame(width: geometryReader.size.width*0.9, height: geometryReader.size.height*0.05).background(
                                 RoundedRectangle(cornerRadius: 33).fill(Color("ButtonColor"))
                             )
-                            
-                            
                             NavigationLink(destination: ReferFriendView()) {
-                                Text("Refer a friend and earn $25")
-                            }.buttonStyle(OrangeButtonStyle())
-                            
+                                Text("Refer a friend and earn $25").fontWeight(.semibold).foregroundColor(.black)
+                            }.frame(width: geometryReader.size.width*0.9, height: geometryReader.size.height*0.05).background(
+                                RoundedRectangle(cornerRadius: 33).fill(Color("ButtonColor"))
+                            )
                             NavigationLink(destination: FaqView()) {
-                                Text("Help")
-                            }.buttonStyle(OrangeButtonStyle())
-                            
-                            NavigationLink(destination: LandingView().onAppear() {
+                                Text("Help").fontWeight(.semibold).foregroundColor(.black)
+                            }.frame(width: geometryReader.size.width*0.9, height: geometryReader.size.height*0.05).background(
+                                RoundedRectangle(cornerRadius: 33).fill(Color("ButtonColor"))
+                            )
+                            Button(action: {
                                 do {
                                     try Auth.auth().signOut()
+                                    isSignedOut = true
                                 } catch let signOutError as NSError {
-                                    print("Error signing out: %@", signOutError)
+                                    isSignedOut = false
+                                    isError = true
+                                    errorMessage = signOutError.localizedDescription
                                 }
-                            }) {
-                                Text("Sign out")
-                            }.buttonStyle(OrangeButtonStyle())
+                            }, label: {
+                                Text("Sign out").fontWeight(.semibold).foregroundColor(.black)
+                            }).frame(width: geometryReader.size.width*0.9, height: geometryReader.size.height*0.05).background(
+                                RoundedRectangle(cornerRadius: 33).fill(Color("ButtonColor"))
+                            ).alert(errorMessage, isPresented: $isError) {
+                                Button("OK", role: .cancel) { }
+                            }
                         }
                     }
                 }
-            }}.background(Color("BackgroundColor"))
+            }}.background(Color("BackgroundColor")).navigationDestination(isPresented: $isSignedOut, destination: {LandingView()})
         }.navigationBarHidden(true)
     }
     
@@ -169,6 +171,6 @@ struct Dashboard2View: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        Dashboard2View()
+        DashboardView()
     }
 }

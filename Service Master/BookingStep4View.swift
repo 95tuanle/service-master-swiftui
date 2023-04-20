@@ -53,7 +53,7 @@ struct BookingStep4View: View {
                     .padding([.leading, .trailing])
                
 
-                NavigationLink(destination: Dashboard2View()) {
+                NavigationLink(destination: DashboardView()) {
                     NavButtonTextView(text: "Go to dashboard")
                 }.padding([.bottom])
                 Spacer()

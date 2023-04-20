@@ -96,7 +96,7 @@ struct ReferFriendView: View {
                 Spacer()
                 
                 
-                NavigationLink(destination: Dashboard2View()) {
+                NavigationLink(destination: DashboardView()) {
                     Text("Go to dashboard")
                 }.buttonStyle(OrangeButtonStyle())
                 Spacer()
