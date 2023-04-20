@@ -21,65 +21,67 @@ struct BookingStep3View: View {
     @State var province: String = ""
     @State var contactNumber: String = ""
     @State var email: String = ""
-
+    
     
     var body: some View {
-        VStack(spacing: 20) {
-            Image("Service-master-logo")
-            
-            NavBarView(one: "orange1", two: "orange2", three: "black3", four: "orange4")
-            
-            Group {
-                TextFieldView(stateVar: $fullName, placeholder: "Full Name")
-                TextFieldView(stateVar: $address, placeholder: "Address")
-                TextFieldView(stateVar: $city, placeholder: "City")
-                TextFieldView(stateVar: $province, placeholder: "Province")
-                TextFieldView(stateVar: $contactNumber, placeholder: "Contact Number")
-                TextFieldView(stateVar: $email, placeholder: "Email")
-            }
-            
-            
-            HStack {
-                Text("How would you like us to contact?").fontWeight(.bold)
-                    .padding([.trailing, .leading])
-                Spacer()
-            }
-            
-            HStack {
-                Button(action: {
-                    self.contactChoice = .email
-                }) {
-                    UrgencyButtonTextView(text: "Email",
-                                          bgColor: self.contactChoice == .email ? "black": "appOrange",
-                                          fgColor: self.contactChoice == .email ? "white": "black")
+        NavigationStack {
+            VStack(spacing: 20) {
+                Image("Service-master-logo")
+                
+                NavBarView(one: "orange1", two: "orange2", three: "black3", four: "orange4")
+                
+                Group {
+                    TextFieldView(stateVar: $fullName, placeholder: "Full Name")
+                    TextFieldView(stateVar: $address, placeholder: "Address")
+                    TextFieldView(stateVar: $city, placeholder: "City")
+                    TextFieldView(stateVar: $province, placeholder: "Province")
+                    TextFieldView(stateVar: $contactNumber, placeholder: "Contact Number")
+                    TextFieldView(stateVar: $email, placeholder: "Email")
                 }
                 
-                Button(action: {
-                    self.contactChoice = .phone
-                }) {
-                    UrgencyButtonTextView(text: "Phone",
-                                          bgColor: self.contactChoice == .phone ? "black": "appOrange",
-                                          fgColor: self.contactChoice == .phone ? "white": "black")
+                
+                HStack {
+                    Text("How would you like us to contact?").fontWeight(.bold)
+                        .padding([.trailing, .leading])
+                    Spacer()
                 }
                 
-                Button(action: {
-                    self.contactChoice = .text
-                }) {
-                    UrgencyButtonTextView(text: "Text",
-                                          bgColor: self.contactChoice == .text ? "black": "appOrange",
-                                          fgColor: self.contactChoice == .text ? "white": "black")
+                HStack {
+                    Button(action: {
+                        self.contactChoice = .email
+                    }) {
+                        UrgencyButtonTextView(text: "Email",
+                                              bgColor: self.contactChoice == .email ? "black": "appOrange",
+                                              fgColor: self.contactChoice == .email ? "white": "black")
+                    }
+                    
+                    Button(action: {
+                        self.contactChoice = .phone
+                    }) {
+                        UrgencyButtonTextView(text: "Phone",
+                                              bgColor: self.contactChoice == .phone ? "black": "appOrange",
+                                              fgColor: self.contactChoice == .phone ? "white": "black")
+                    }
+                    
+                    Button(action: {
+                        self.contactChoice = .text
+                    }) {
+                        UrgencyButtonTextView(text: "Text",
+                                              bgColor: self.contactChoice == .text ? "black": "appOrange",
+                                              fgColor: self.contactChoice == .text ? "white": "black")
+                    }
                 }
-            }
-            
-            
-            NavigationLink(destination: BookingStep2View()) {
-                NavButtonTextView(text: "Previous step")
-            }.padding([.top])
-            
-            NavigationLink(destination: BookingStep4View()) {
-                NavButtonTextView(text: "Next Step")
-            }.padding([.bottom])
-            
+                
+                
+                NavigationLink(destination: BookingStep2View()) {
+                    NavButtonTextView(text: "Previous step")
+                }.padding([.top])
+                
+                NavigationLink(destination: BookingStep4View()) {
+                    NavButtonTextView(text: "Next Step")
+                }.padding([.bottom])
+                
+            }.background(Color("BackgroundColor"))
         }.navigationBarHidden(true)
     }
 }

@@ -9,8 +9,8 @@ import SwiftUI
 
 struct LandingView: View {
     var body: some View {
-        NavigationView {
-            GeometryReader{geometryReader in ZStack {
+        NavigationStack {
+            GeometryReader {geometryReader in ZStack {
                 VStack {
                     VStack {
                         Image("Logo").resizable().aspectRatio(contentMode: .fit).frame(width: geometryReader.size.width*0.8)
