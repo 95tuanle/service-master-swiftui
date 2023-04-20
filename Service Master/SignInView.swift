@@ -73,7 +73,7 @@ struct SignInView: View {
                     Spacer()
                 }.frame(width: geometryReader.size.width*0.9)
                 Spacer()
-            }}.background(Color("BackgroundColor")).navigationDestination(isPresented: $isSignedIn, destination: {Dashboard1View()})
+            }}.background(Color("BackgroundColor")).navigationDestination(isPresented: $isSignedIn, destination: {ServicesView()})
         }.navigationBarHidden(true)
     }
 }

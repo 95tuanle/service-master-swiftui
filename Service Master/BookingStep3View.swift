@@ -22,7 +22,10 @@ struct BookingStep3View: View {
     @State var contactNumber: String = ""
     @State var email: String = ""
     
-    
+    var service: Service
+    init(_ service: Service) {
+        self.service = service
+    }
     var body: some View {
         NavigationStack {
             VStack(spacing: 20) {
@@ -73,7 +76,7 @@ struct BookingStep3View: View {
                 }
                 
                 
-                NavigationLink(destination: BookingStep2View()) {
+                NavigationLink(destination: BookingStep2View(service)) {
                     NavButtonTextView(text: "Previous step")
                 }.padding([.top])
                 
@@ -88,6 +91,10 @@ struct BookingStep3View: View {
 
 struct BookingStep3Page_Previews: PreviewProvider {
     static var previews: some View {
-        BookingStep3View()
+        let dictionary: NSDictionary = [
+            "mainServices": "Bathroom Maintenance & Upgrade",
+            "description": "Need a contractor to repair and upgrade your Bathroom but aren't sure where to find one? Get Connected to a Pro Service Provider through Service Master App!"
+        ]
+        BookingStep3View(Service(dictionary))
     }
 }
