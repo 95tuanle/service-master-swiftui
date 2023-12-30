@@ -30,7 +30,7 @@ struct DashboardView: View {
     var body: some View {
         NavigationStack {
             GeometryReader {geometryReader in Group {
-                VStack(alignment: .center) {
+                VStack {
                     Image("Logo").resizable().aspectRatio(contentMode: .fit).frame(width: geometryReader.size.width*0.6)
                     Text("Hi \(email ?? "user") how can we help you?").bold()
                     HStack {
@@ -66,7 +66,7 @@ struct DashboardView: View {
                                 .font(.system(size:13))
                         }.padding(.all, 15)
                     }
-                    Text("Review us on AppStore").bold()
+                    Text("Review us on App Store").bold()
                     Group{
                         HStack{
                             ZStack{
