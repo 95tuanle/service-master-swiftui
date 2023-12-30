@@ -30,10 +30,14 @@ struct DashboardView: View {
     var body: some View {
         NavigationStack {
             GeometryReader {geometryReader in Group {
-                VStack {
+                VStack(alignment: .center) {
                     Image("Logo").resizable().aspectRatio(contentMode: .fit).frame(width: geometryReader.size.width*0.6)
                     Text("Hi \(email ?? "user") how can we help you?").bold()
-                    TextField ("I am looking for a master about..", text: $textField1).padding(3).overlay(RoundedRectangle(cornerRadius: 33).stroke(Color.gray, lineWidth: 0.2)).frame(width: geometryReader.size.width*0.9, alignment: .center)
+                    HStack {
+                        Spacer()
+                        TextField ("I am looking for a master about..", text: $textField1).padding(3).overlay(RoundedRectangle(cornerRadius: 33).stroke(Color.gray, lineWidth: 0.2)).frame(width: geometryReader.size.width*0.9)
+                        Spacer()
+                    }
                     Text("Meet with new masters in your area!").bold()
                     HStack{
                         VStack{
